@@ -27,7 +27,7 @@ temp_tidy <- pivot_longer(
 
 temp_tidy
 
-# sample
+# Example
 
 nh_temp %>% 
   select(Year:Dec) %>% 
@@ -37,3 +37,32 @@ nh_temp %>%
                values_to = "Temp") %>% 
   group_by(Month) %>% 
   summarise(mean_temp = mean(Temp))
+
+# Excursion: lookup tables
+
+months <- c("Jan", "Feb", "Mar", "Apr", 
+            "Jan", "Jan", "Feb", "Jan",
+            "Apr", "Mar", "Mar", "May")
+
+months_num <- 1:12
+names(months_num) <- c("Jan", "Feb", "Mar",
+                       "Apr", "May", "Jun",
+                       "Jul", "Aug", "Sep",
+                       "Oct", "Nov", "Dec")
+months_num
+months_num[c("Apr", "Jul", "Apr")]
+months_num[months]
+
+# Example
+
+nh_temp %>% 
+  select(Year:Dec) %>% 
+  pivot_longer(Jan:Dec, names_to = "Month",
+               values_to = "Temp") %>% 
+  filter(Year %in% 1950:2010) %>% 
+  group_by(Month) %>% 
+  summarise(Temp = mean(Temp)) %>% 
+  mutate(Month = months_num[Month]) %>% 
+  arrange(Month) %>% 
+  filter(Month %in% 3:10) %>% 
+  summarise(Temp = mean(Temp))
