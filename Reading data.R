@@ -34,3 +34,12 @@ data <- read.csv("Textfiles-20210207/file1.txt")
 fl<- write.csv(data, "Textfiles-20210207/test.txt")
 fl
 
+# Exploring data
+
+nrow(mtcars)
+ncol(mtcars)
+head(mtcars)
+tail(mtcars)
+str(mtcars)
+
+mtcars$hp
